@@ -3,10 +3,8 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 open_file = open("death_valley_2018_simple.csv", "r")
-
 csv_file = csv.reader(open_file, delimiter= ",")
-
-header_row = next(csv_file)
+header_row= next(csv_file)
 
 #print(type(header_row))
 
@@ -27,7 +25,7 @@ for i in csv_file:
     try:
         the_date = datetime.strptime(i[2], '%Y-%m-%d')
         high = int(i[4])
-        low = int(i[4])
+        low = int(i[5])
         
     except ValueError:
         print(f"Missing data for {the_date}")
@@ -69,7 +67,6 @@ plt.subplot(2,1,2)
 plt.plot(dates,lows , c = 'blue')
 plt.title("Lows")
 
-#plt.subtitle()
-
+plt.suptitle("Highs and Lows of Death valley")
 plt.show()
 

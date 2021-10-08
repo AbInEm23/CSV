@@ -44,4 +44,3 @@ fig.autofmt_xdate()
 
 plt.show()
 
-

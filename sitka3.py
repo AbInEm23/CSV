@@ -59,7 +59,7 @@ plt.subplot(2,1,2)
 plt.plot(dates,lows , c = 'blue')
 plt.title("Lows")
 
-#plt.subtitle()
+plt.suptitle("Highs and Lows of sitka, Alaska")
 
 plt.show()
 
