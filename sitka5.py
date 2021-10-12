@@ -33,19 +33,22 @@ for index,column_header_death in enumerate(header_row_death):
 
 dates_sitka = []
 dates_death = []
-highs_sitka = []
+
 
 high_index_death = header_row_death.index('TMAX')
 low_index_death = header_row_death.index('TMIN')
 date_index_death = header_row_death.index('DATE')
+title_index_death = header_row_death.index('NAME')
 
-lows_sitka = []
+highs_sitka = []
 highs_death = []
 lows_death = []
+lows_sitka = []
 
 high_index_sitka = header_row_sitka.index('TMAX')
 low_index_sitka = header_row_sitka.index('TMIN')
 date_index_sitka = header_row_sitka.index('DATE')
+title_index_sitka = header_row_sitka.index('NAME')
 
 #append lists for sitka 
 for i in csv_file_sitka:
@@ -53,6 +56,7 @@ for i in csv_file_sitka:
     the_sitka_date = datetime.strptime(i[date_index_sitka], '%Y-%m-%d')
     dates_sitka.append(the_sitka_date)
     lows_sitka.append(int(i[low_index_sitka]))
+    Name_of_sitka = i[title_index_sitka]
 
 #print(highs_sitka)
 #print(dates_sitka)
@@ -66,7 +70,7 @@ for i in csv_file_death:
         the_death_date = datetime.strptime(i[date_index_death], '%Y-%m-%d')
         high = int(i[high_index_death])
         low = int(i[low_index_death])
-        
+        Name_of_death = i[title_index_death]
         
     except ValueError:
         print(f"Missing data for {the_death_date}")
@@ -86,15 +90,15 @@ plt.subplot(2,1,1)
 plt.plot(dates_sitka,highs_sitka, c = 'red')
 plt.plot(dates_sitka,lows_sitka, c = 'blue')
 plt.fill_between(dates_sitka,highs_sitka,lows_sitka, facecolor = 'blue', alpha = 0.1)
-plt.title("Sitka Airport, AK US")
+plt.title(Name_of_sitka)
 
 plt.subplot(2,1,2)
 plt.plot(dates_death,highs_death, c = 'red')
 plt.plot(dates_death,lows_death, c = 'blue')
 plt.fill_between(dates_death,highs_death,lows_death, facecolor = 'blue', alpha = 0.1)
-plt.title("Death valley, CA US ")
+plt.title(Name_of_death)
 
-plt.suptitle("Temperature comparison between sitka airport, Ak US and Death Valley, CA US")
+plt.suptitle(f"Temperature comparison between {Name_of_sitka} and {Name_of_death}")
 
 
 fig.autofmt_xdate()
