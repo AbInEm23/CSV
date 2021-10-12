@@ -14,10 +14,15 @@ header_row_death= next(csv_file_death)
 #header row for sitka
 for index,column_header_sitka in enumerate(header_row_sitka):
     print(index,column_header_sitka)
+   
 
 #header row for death 
 for index,column_header_death in enumerate(header_row_death):
     print(index,column_header_death)
+    
+
+
+
 
 
 
@@ -29,17 +34,25 @@ for index,column_header_death in enumerate(header_row_death):
 dates_sitka = []
 dates_death = []
 highs_sitka = []
+
+high_index_death = header_row_death.index('TMAX')
+low_index_death = header_row_death.index('TMIN')
+date_index_death = header_row_death.index('DATE')
+
 lows_sitka = []
 highs_death = []
 lows_death = []
 
+high_index_sitka = header_row_sitka.index('TMAX')
+low_index_sitka = header_row_sitka.index('TMIN')
+date_index_sitka = header_row_sitka.index('DATE')
 
 #append lists for sitka 
 for i in csv_file_sitka:
-    highs_sitka.append(int(i[5]))
-    the_sitka_date = datetime.strptime(i[2], '%Y-%m-%d')
+    highs_sitka.append(int(i[high_index_sitka]))
+    the_sitka_date = datetime.strptime(i[date_index_sitka], '%Y-%m-%d')
     dates_sitka.append(the_sitka_date)
-    lows_sitka.append(int(i[6]))
+    lows_sitka.append(int(i[low_index_sitka]))
 
 #print(highs_sitka)
 #print(dates_sitka)
@@ -50,9 +63,10 @@ for i in csv_file_sitka:
 for i in csv_file_death:
 
     try:
-        the_death_date = datetime.strptime(i[2], '%Y-%m-%d')
-        high = int(i[4])
-        low = int(i[5])
+        the_death_date = datetime.strptime(i[date_index_death], '%Y-%m-%d')
+        high = int(i[high_index_death])
+        low = int(i[low_index_death])
+        
         
     except ValueError:
         print(f"Missing data for {the_death_date}")
@@ -72,13 +86,13 @@ plt.subplot(2,1,1)
 plt.plot(dates_sitka,highs_sitka, c = 'red')
 plt.plot(dates_sitka,lows_sitka, c = 'blue')
 plt.fill_between(dates_sitka,highs_sitka,lows_sitka, facecolor = 'blue', alpha = 0.1)
-plt.title("")
+plt.title("Sitka Airport, AK US")
 
 plt.subplot(2,1,2)
 plt.plot(dates_death,highs_death, c = 'red')
 plt.plot(dates_death,lows_death, c = 'blue')
 plt.fill_between(dates_death,highs_death,lows_death, facecolor = 'blue', alpha = 0.1)
-plt.title("")
+plt.title("Death valley, CA US ")
 
 plt.suptitle("Temperature comparison between sitka airport, Ak US and Death Valley, CA US")
 
