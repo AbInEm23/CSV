@@ -20,43 +20,38 @@ for index,column_header_sitka in enumerate(header_row_sitka):
 for index,column_header_death in enumerate(header_row_death):
     print(index,column_header_death)
     
-
-
-
-
-
-
 #Testing to convert date from string 
 #works for both
 #mydate = datetime.strptime('2018-07-01', '%Y-%m-%d')
 #print(mydate)
 
+#lists of sitka
 dates_sitka = []
-dates_death = []
-
-
-high_index_death = header_row_death.index('TMAX')
-low_index_death = header_row_death.index('TMIN')
-date_index_death = header_row_death.index('DATE')
-title_index_death = header_row_death.index('NAME')
-
 highs_sitka = []
+lows_sitka = []
+#index of sitka
+sitka_index_for_high = header_row_sitka.index('TMAX')
+sitka_index_for_low = header_row_sitka.index('TMIN')
+sitka_index_for_date = header_row_sitka.index('DATE')
+Sitka_title_index = header_row_sitka.index('NAME')
+
+#lists of death
+dates_death = []
 highs_death = []
 lows_death = []
-lows_sitka = []
-
-high_index_sitka = header_row_sitka.index('TMAX')
-low_index_sitka = header_row_sitka.index('TMIN')
-date_index_sitka = header_row_sitka.index('DATE')
-title_index_sitka = header_row_sitka.index('NAME')
+#index of death
+death_index_for_high = header_row_death.index('TMAX')
+death_index_for_low = header_row_death.index('TMIN')
+death_index_for_date = header_row_death.index('DATE')
+death_title_index = header_row_death.index('NAME')
 
 #append lists for sitka 
 for i in csv_file_sitka:
-    highs_sitka.append(int(i[high_index_sitka]))
-    the_sitka_date = datetime.strptime(i[date_index_sitka], '%Y-%m-%d')
+    highs_sitka.append(int(i[sitka_index_for_high]))
+    the_sitka_date = datetime.strptime(i[sitka_index_for_date], '%Y-%m-%d')
     dates_sitka.append(the_sitka_date)
-    lows_sitka.append(int(i[low_index_sitka]))
-    Name_of_sitka = i[title_index_sitka]
+    lows_sitka.append(int(i[sitka_index_for_low]))
+    Name_of_sitka = i[Sitka_title_index]
 
 #print(highs_sitka)
 #print(dates_sitka)
@@ -67,10 +62,10 @@ for i in csv_file_sitka:
 for i in csv_file_death:
 
     try:
-        the_death_date = datetime.strptime(i[date_index_death], '%Y-%m-%d')
-        high = int(i[high_index_death])
-        low = int(i[low_index_death])
-        Name_of_death = i[title_index_death]
+        the_death_date = datetime.strptime(i[death_index_for_date], '%Y-%m-%d')
+        high = int(i[death_index_for_high])
+        low = int(i[death_index_for_low])
+        Name_of_death = i[death_title_index]
         
     except ValueError:
         print(f"Missing data for {the_death_date}")
